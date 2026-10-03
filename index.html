@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>素菡 · 个人主页</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #0d0d0f;
+      --black-2: #16161a;
+      --gold: #d4af37;
+      --gold-light: #e8cf8a;
+      --champagne: #c9a96e;
+      --ivory: #f5f0e6;
+      --gray: #9a968e;
+      --fuchsia: #d63384;
+      --emerald: #0f9d76;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+      background: var(--black);
+      color: var(--ivory);
+      line-height: 1.7;
+    }
+
+    ::selection {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    /* ===== 头部导航 ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 6%;
+      background: rgba(13, 13, 15, 0.75);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+    }
+
+    nav .logo {
+      font-family: Georgia, "Noto Serif SC", serif;
+      font-size: 1.3rem;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    nav .links {
+      display: flex;
+      gap: 32px;
+    }
+
+    nav .links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.92rem;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+
+    nav .links a:hover {
+      color: var(--gold);
+    }
+
+    /* ===== 首屏 ===== */
+    header {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 70px;
+      padding: 120px 6% 80px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(212, 175, 55, 0.10), transparent 55%),
+        radial-gradient(ellipse at 80% 75%, rgba(214, 51, 132, 0.08), transparent 50%),
+        var(--black);
+    }
+
+    .avatar-wrap {
+      flex-shrink: 0;
+      position: relative;
+      width: 320px;
+      height: 320px;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      background: conic-gradient(var(--gold), var(--fuchsia), var(--emerald), var(--gold));
+      animation: spin 8s linear infinite;
+      opacity: 0.85;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .avatar {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--gold);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    /* 原图头像：居中裁剪 + 轻微高级感调色 */
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      filter: saturate(1.1) contrast(1.06) brightness(1.02);
+    }
+
+    .hero-text h1 {
+      font-family: Georgia, "Noto Serif SC", serif;
+      font-size: 4rem;
+      letter-spacing: 10px;
+      background: linear-gradient(120deg, var(--gold-light), var(--gold), var(--champagne));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 14px;
+    }
+
+    .hero-text .role {
+      font-size: 1.15rem;
+      letter-spacing: 3px;
+      color: var(--ivory);
+      margin-bottom: 10px;
+    }
+
+    .hero-text .role strong {
+      color: var(--gold);
+    }
+
+    .hero-text .slogan {
+      font-size: 1rem;
+      color: var(--gray);
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .hero-tags span {
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      letter-spacing: 1px;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      color: var(--gold-light);
+    }
+
+    .hero-tags span:nth-child(2) {
+      border-color: rgba(214, 51, 132, 0.55);
+      color: #f191bd;
+    }
+
+    .hero-tags span:nth-child(3) {
+      border-color: rgba(15, 157, 118, 0.55);
+      color: #6fd8b6;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 40px;
+      border-radius: 2px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      letter-spacing: 3px;
+      transition: all 0.3s;
+    }
+
+    .btn-gold {
+      background: linear-gradient(120deg, var(--gold-light), var(--gold));
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.35);
+    }
+
+    .btn-line {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-line:hover {
+      background: var(--gold);
+      color: var(--black);
+      transform: translateY(-3px);
+    }
+
+    /* ===== 通用区块 ===== */
+    section {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 100px 6%;
+    }
+
+    .sec-title {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .sec-title .en {
+      font-size: 0.85rem;
+      letter-spacing: 8px;
+      color: var(--fuchsia);
+      text-transform: uppercase;
+    }
+
+    .sec-title h2 {
+      font-family: Georgia, "Noto Serif SC", serif;
+      font-size: 2.2rem;
+      letter-spacing: 8px;
+      color: var(--ivory);
+      margin-top: 10px;
+    }
+
+    .sec-title .bar {
+      width: 56px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--fuchsia));
+      margin: 18px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ===== 关于我 ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: #c9c4b8;
+      margin-bottom: 18px;
+      font-size: 1.02rem;
+    }
+
+    .about-text em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .fact-card {
+      background: var(--black-2);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 4px;
+      padding: 30px 34px;
+    }
+
+    .fact-card li {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 13px 0;
+      border-bottom: 1px dashed rgba(212, 175, 55, 0.18);
+      font-size: 0.95rem;
+    }
+
+    .fact-card li:last-child {
+      border-bottom: none;
+    }
+
+    .fact-card .label {
+      color: var(--gray);
+      letter-spacing: 2px;
+    }
+
+    .fact-card .value {
+      color: var(--ivory);
+      text-align: right;
+    }
+
+    /* ===== 高光时刻（AI 先行者）===== */
+    .spotlight {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 6%;
+    }
+
+    .spotlight-inner {
+      position: relative;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.14), rgba(214, 51, 132, 0.10) 55%, rgba(15, 157, 118, 0.10));
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 4px;
+      padding: 52px 56px;
+      overflow: hidden;
+    }
+
+    .spotlight-inner::before {
+      content: "AI";
+      position: absolute;
+      right: 24px;
+      bottom: -30px;
+      font-family: Georgia, serif;
+      font-size: 11rem;
+      font-weight: 700;
+      color: rgba(212, 175, 55, 0.08);
+      line-height: 1;
+    }
+
+    .spotlight .badge {
+      display: inline-block;
+      background: var(--fuchsia);
+      color: #fff;
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      padding: 6px 16px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+
+    .spotlight h3 {
+      font-size: 1.6rem;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+      color: var(--gold-light);
+    }
+
+    .spotlight p {
+      color: #d8d3c7;
+      max-width: 760px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== 履历时间线 ===== */
+    .timeline {
+      position: relative;
+      max-width: 760px;
+      margin: 0 auto;
+      padding-left: 34px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(var(--gold), var(--fuchsia));
+    }
+
+    .t-item {
+      position: relative;
+      padding-bottom: 44px;
+    }
+
+    .t-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .t-item::before {
+      content: "";
+      position: absolute;
+      left: -33px;
+      top: 8px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--black);
+      border: 3px solid var(--gold);
+    }
+
+    .t-item .year {
+      font-family: Georgia, serif;
+      color: var(--gold);
+      font-size: 1.05rem;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .t-item h4 {
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .t-item p {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+
+    /* ===== 能力 ===== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 22px;
+    }
+
+    .skill-card {
+      background: var(--black-2);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-top: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 32px 28px;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(212, 175, 55, 0.55);
+    }
+
+    .skill-card:nth-child(2) {
+      border-top-color: var(--fuchsia);
+    }
+
+    .skill-card:nth-child(3) {
+      border-top-color: var(--emerald);
+    }
+
+    .skill-card:nth-child(4) {
+      border-top-color: var(--gold);
+    }
+
+    .skill-card .icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+    }
+
+    .skill-card h3 {
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .skill-card p {
+      color: var(--gray);
+      font-size: 0.92rem;
+    }
+
+    /* ===== 性格标签 ===== */
+    .traits {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .trait {
+      padding: 16px 34px;
+      border-radius: 2px;
+      font-size: 1.02rem;
+      letter-spacing: 2px;
+      transition: all 0.3s;
+      cursor: default;
+    }
+
+    .trait:nth-child(1) {
+      background: var(--gold);
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .trait:nth-child(2) {
+      background: var(--fuchsia);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .trait:nth-child(3) {
+      background: var(--emerald);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .trait:hover {
+      transform: scale(1.08) rotate(-1deg);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+    }
+
+    /* ===== 联系 ===== */
+    .contact {
+      text-align: center;
+    }
+
+    .contact p {
+      color: var(--gray);
+      margin-bottom: 40px;
+    }
+
+    .contact-cards {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .c-card {
+      background: var(--black-2);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 4px;
+      padding: 30px 44px;
+      min-width: 260px;
+      transition: all 0.3s;
+    }
+
+    .c-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-6px);
+    }
+
+    .c-card .icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .c-card .label {
+      color: var(--gray);
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      margin-bottom: 6px;
+    }
+
+    .c-card .value {
+      color: var(--ivory);
+      font-size: 1.02rem;
+      letter-spacing: 1px;
+    }
+
+    a.value {
+      text-decoration: none;
+      color: var(--gold) !important;
+    }
+
+    /* ===== 页脚 ===== */
+    footer {
+      text-align: center;
+      padding: 34px 20px;
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
+      color: var(--gray);
+      font-size: 0.88rem;
+      letter-spacing: 2px;
+    }
+
+    footer .gold {
+      color: var(--gold);
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+      }
+
+      .hero-text h1 {
+        font-size: 2.6rem;
+        letter-spacing: 6px;
+      }
+
+      .hero-tags,
+      .hero-btns {
+        justify-content: center;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      nav .links {
+        display: none;
+      }
+
+      .spotlight-inner {
+        padding: 36px 28px;
+      }
+
+      .spotlight-inner::before {
+        font-size: 7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 导航 -->
+  <nav>
+    <a href="#top" class="logo">素菡 SUHAN</a>
+    <div class="links">
+      <a href="#about">关于我</a>
+      <a href="#journey">履历</a>
+      <a href="#skills">能力</a>
+      <a href="#contact">联系</a>
+    </div>
+  </nav>
+
+  <!-- 首屏 -->
+  <header id="top">
+    <div class="avatar-wrap">
+      <div class="avatar-ring"></div>
+      <div class="avatar">
+        <img src="avatar-real.jpg" alt="素菡的照片">
+      </div>
+    </div>
+    <div class="hero-text">
+      <h1>素 菡</h1>
+      <p class="role"><strong>隆昌市润新科技有限公司</strong> · 总经理</p>
+      <p class="slogan">从话筒到会议室，从融媒体到 AI 化管理——做什么都要做到极致的"全挂子"。</p>
+      <div class="hero-tags">
+        <span>管理统筹专家</span>
+        <span>全员 AI 化先行者</span>
+        <span>全媒体老兵</span>
+      </div>
+      <div class="hero-btns">
+        <a href="#about" class="btn btn-gold">认识我</a>
+        <a href="#contact" class="btn btn-line">联系我</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 关于我 -->
+  <section id="about">
+    <div class="sec-title">
+      <div class="en">About Me</div>
+      <h2>关于我</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>你好，我是素菡。我最大的特点就是<em>特别擅长学习</em>——从主持人、播音员，到记者、编辑，再到企业管理者，每一次转身都靠学习完成。</p>
+        <p>2006 年到 2024 年，我在隆昌市融媒体中心干了整整十八年，主持、播音、采写、编辑样样拿得起，是同事口中名副其实的<em>"全挂子"</em>。</p>
+        <p>2023 年 3 月，在干部大练兵中我到隆昌市隆润实业集团有限公司挂职锻炼。最终，我做出了一个大胆的决定：辞去融媒体中心的正式编制，留在国企，开启全新赛道。</p>
+        <p>如今，我熟练掌握各类 AI 工具，并成为<em>隆昌市唯一一位主动在公司推行全员高度 AI 化办公的管理者</em>。我相信，敢想敢干，才能带着团队跑在时代前面。</p>
+      </div>
+      <ul class="fact-card">
+        <li><span class="label">姓 名</span><span class="value">素菡</span></li>
+        <li><span class="label">职 位</span><span class="value">润新科技 总经理</span></li>
+        <li><span class="label">城 市</span><span class="value">四川 · 隆昌市</span></li>
+        <li><span class="label">过 往</span><span class="value">融媒体中心 18 年</span></li>
+        <li><span class="label">标 签</span><span class="value">AI 化办公推动者</span></li>
+        <li><span class="label">性 格</span><span class="value">耿直 · 朋友多</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 高光 -->
+  <div class="spotlight">
+    <div class="spotlight-inner">
+      <span class="badge">HIGHLIGHT · 高光时刻</span>
+      <h3>隆昌市唯一 · 全员高度 AI 化办公推行者</h3>
+      <p>在别人还在观望 AI 的时候，我已经在自己的公司里全面落地：全员使用 AI 工具办公、用 AI 重塑工作流程、用 AI 提升组织效率。主动求变，是我作为管理者最坚定的选择。</p>
+    </div>
+  </div>
+
+  <!-- 履历 -->
+  <section id="journey">
+    <div class="sec-title">
+      <div class="en">Career</div>
+      <h2>我的履历</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="year">2006 — 2024</div>
+        <h4>隆昌市融媒体中心 · 主持人 / 播音员 / 记者 / 编辑</h4>
+        <p>十八年全媒体一线历练，台前能撑场，幕后能扛稿，名副其实的"全挂子"。</p>
+      </div>
+      <div class="t-item">
+        <div class="year">2023.03</div>
+        <h4>干部大练兵 · 挂职隆润实业集团</h4>
+        <p>在干部大练兵中到隆昌市隆润实业集团有限公司挂职，从媒体视角切换到企业经营视角。</p>
+      </div>
+      <div class="t-item">
+        <div class="year">2024</div>
+        <h4>辞去正式编制 · 扎根国企</h4>
+        <p>放弃融媒体"铁饭碗"，选择留在国企，把职业主动权握在自己手里。</p>
+      </div>
+      <div class="t-item">
+        <div class="year">现在</div>
+        <h4>隆昌市润新科技有限公司 · 总经理</h4>
+        <p>带领公司全面推行 AI 化办公，用管理、统筹与项目运营能力，把团队带向更高效率的未来。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 能力 -->
+  <section id="skills">
+    <div class="sec-title">
+      <div class="en">Strengths</div>
+      <h2>核心能力</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="icon">👑</div>
+        <h3>管理能力</h3>
+        <p>综合性管理人员，懂业务、懂人心，能带队打仗，也能稳住大局。</p>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🧭</div>
+        <h3>统筹能力</h3>
+        <p>多线任务调度自如，资源整合与跨部门协同是老本行。</p>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🚀</div>
+        <h3>项目运营</h3>
+        <p>从策划到落地全流程把控，把想法变成看得见的成果。</p>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🤖</div>
+        <h3>AI 化办公</h3>
+        <p>熟练掌握各类 AI 工具，并率先在公司推行全员 AI 化办公。</p>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🎙️</div>
+        <h3>全媒体功底</h3>
+        <p>主持、播音、采编十八年磨一剑，表达与内容能力俱佳。</p>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🤝</div>
+        <h3>社交达人</h3>
+        <p>朋友多、人耿直，天生的连接者，走到哪里都有好人缘。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 性格 -->
+  <section id="traits">
+    <div class="sec-title">
+      <div class="en">Personality</div>
+      <h2>我的底色</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="traits">
+      <span class="trait">朋友多 · 讲义气</span>
+      <span class="trait">人耿直 · 不玩虚的</span>
+      <span class="trait">社交强 · 走哪都熟</span>
+    </div>
+  </section>
+
+  <!-- 联系 -->
+  <section id="contact" class="contact">
+    <div class="sec-title">
+      <div class="en">Contact</div>
+      <h2>联系我</h2>
+      <div class="bar"></div>
+    </div>
+    <p>有事您说话，合作、交流、请教 AI 办公经验，都欢迎！</p>
+    <div class="contact-cards">
+      <div class="c-card">
+        <div class="icon">📧</div>
+        <div class="label">邮 箱</div>
+        <a class="value" href="mailto:1533299@qq.com">1533299@qq.com</a>
+      </div>
+      <div class="c-card">
+        <div class="icon">💬</div>
+        <div class="label">微信 / 手机</div>
+        <div class="value">135 6805 3399</div>
+      </div>
+      <div class="c-card">
+        <div class="icon">📍</div>
+        <div class="label">城 市</div>
+        <div class="value">四川 · 隆昌市</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer>
+    © 2026 素菡 · <span class="gold">敢想敢干，活出漂亮</span>
+  </footer>
+
+</body>
+</html>
